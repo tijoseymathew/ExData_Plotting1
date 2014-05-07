@@ -1,0 +1,4 @@
+UCI HAR Dataset/
+*.zip
+*.Rhistory
+*household_power_consumption.txt
