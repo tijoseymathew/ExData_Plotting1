@@ -15,7 +15,7 @@ loadData <- function(datePeriod = as.Date(c("2007-02-01","2007-02-02"), format="
   data <- read.csv("household_power_consumption.txt", header=T, sep=";",
                    colClasses=c("character", "character", 
                                 "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"),
-                   na.strings="?"
+                   na.strings="?" #Change na character from missing to ?
                    )
   dates <- as.Date(data$Date, format="%d/%m/%Y")
   #Select data with dates of interest
