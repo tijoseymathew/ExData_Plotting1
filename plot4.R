@@ -1,6 +1,6 @@
 source("loadData.R")
-data <- loadData()
-png("plot4.png", width=480, height=480)
+data <- loadData() #Load data
+png("plot4.png", width=480, height=480) #Open png device
 
 par(mfrow=c(2,2))
 
@@ -31,4 +31,4 @@ plot(data$DateTime, data$Global_reactive_power,
      xlab="datetime",
      ylab="Global_reactive_power")
 
-dev.off()
+dev.off() #Close png device
