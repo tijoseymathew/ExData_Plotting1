@@ -1,56 +1,34 @@
+source("loadData.R")
 data <- loadData()
 png("plot4.png", width=480, height=480)
 
 par(mfrow=c(2,2))
 
-plot(data$Global_active_power,
+plot(data$DateTime, data$Global_active_power,
      type="l",
      xlab="",
-     ylab="Global Active Power",
-     xaxt="n") #Plot without the xAxis
-#Find ids of dates with midnight time point
-midnightIdx <- data$Time==strptime("00:00:00", format="%H:%M:%S")
-#Convert dates to day adding one extra day for the last point
-xTicks <- weekdays(c(data$Date[midnightIdx],data$Date[nrow(data)]+1), abbreviate=T)
-#Add xAxis with new labels
-axis(1, c(which(midnightIdx), nrow(data)+1), xTicks)
+     ylab="Global Active Power")
 
-plot(data$Voltage,
+plot(data$DateTime, data$Voltage,
      type="l",
      xlab="datetime",
-     ylab="Voltage",
-     xaxt="n") #Plot without the xAxis
-#Find ids of dates with midnight time point
-midnightIdx <- data$Time==strptime("00:00:00", format="%H:%M:%S")
-#Convert dates to day adding one extra day for the last point
-xTicks <- weekdays(c(data$Date[midnightIdx],data$Date[nrow(data)]+1), abbreviate=T)
-#Add xAxis with new labels
-axis(1, c(which(midnightIdx), nrow(data)+1), xTicks)
+     ylab="Voltage")
 
-plot(data$Sub_metering_1,
+plot(data$DateTime, data$Sub_metering_1,
      type="l",
      xlab="",
-     ylab="Energy sub metering",
-     xaxt="n") #Plot without the xAxis
-lines(c(1:nrow(data)), data$Sub_metering_2, col="red")
-lines(c(1:nrow(data)), data$Sub_metering_3, col="blue")
-#Find ids of dates with midnight time point
-midnightIdx <- data$Time==strptime("00:00:00", format="%H:%M:%S")
-#Convert dates to day adding one extra day for the last point
-xTicks <- weekdays(c(data$Date[midnightIdx],data$Date[nrow(data)]+1), abbreviate=T)
-#Add xAxis with new labels
-axis(1, c(which(midnightIdx), nrow(data)+1), xTicks)
+     ylab="Energy sub metering")
+lines(data$DateTime, data$Sub_metering_2, col="red")
+lines(data$DateTime, data$Sub_metering_3, col="blue")
+legend("topright",
+       legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+       lty=c(1,1,1),
+       col=c("black", "red", "blue"),
+       bty="n")
 
-plot(data$Global_reactive_power,
+plot(data$DateTime, data$Global_reactive_power,
      type="l",
      xlab="datetime",
-     ylab="Global_reactive_power",
-     xaxt="n") #Plot without the xAxis
-#Find ids of dates with midnight time point
-midnightIdx <- data$Time==strptime("00:00:00", format="%H:%M:%S")
-#Convert dates to day adding one extra day for the last point
-xTicks <- weekdays(c(data$Date[midnightIdx],data$Date[nrow(data)]+1), abbreviate=T)
-#Add xAxis with new labels
-axis(1, c(which(midnightIdx), nrow(data)+1), xTicks)
+     ylab="Global_reactive_power")
 
 dev.off()

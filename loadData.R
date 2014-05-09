@@ -12,7 +12,7 @@ loadData <- function(datePeriod = as.Date(c("2007-02-01","2007-02-02"), format="
                    )
   dates <- as.Date(data$Date, format="%d/%m/%Y")
   data <- subset(data, dates>=datePeriod[1] & dates<=datePeriod[2])
-  data$Date <- dates[dates>=datePeriod[1] & dates<=datePeriod[2]]
-  data$Time <- strptime(data$Time, format="%H:%M:%S")
+  data$DateTime <- strptime( paste(data$Date, data$Time),
+                             format="%d/%m/%Y %H:%M:%S")
   data
 }

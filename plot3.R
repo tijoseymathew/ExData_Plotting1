@@ -1,16 +1,14 @@
+source("loadData.R")
 data <- loadData()
 png("plot3.png", width=480, height=480)
-plot(data$Sub_metering_1,
+plot(data$DateTime, data$Sub_metering_1,
      type="l",
      xlab="",
-     ylab="Energy sub metering",
-     xaxt="n") #Plot without the xAxis
-lines(c(1:nrow(data)), data$Sub_metering_2, col="red")
-lines(c(1:nrow(data)), data$Sub_metering_3, col="blue")
-#Find ids of dates with midnight time point
-midnightIdx <- data$Time==strptime("00:00:00", format="%H:%M:%S")
-#Convert dates to day adding one extra day for the last point
-xTicks <- weekdays(c(data$Date[midnightIdx],data$Date[nrow(data)]+1), abbreviate=T)
-#Add xAxis with new labels
-axis(1, c(which(midnightIdx), nrow(data)+1), xTicks)
+     ylab="Energy sub metering")
+lines(data$DateTime, data$Sub_metering_2, col="red")
+lines(data$DateTime, data$Sub_metering_3, col="blue")
+legend("topright",
+       legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+       lty=c(1,1,1),
+       col=c("black", "red", "blue"))
 dev.off()
